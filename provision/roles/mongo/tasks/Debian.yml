@@ -1,0 +1,33 @@
+---
+
+- name: Add repo key
+  apt_key:
+    keyserver: "{{ mongo_repo_keyserver }}"
+    id: "{{ mongo_repo_key_id }}"
+    validate_certs: no
+
+- name: Add repo
+  apt_repository:
+    repo: "{{ mongo_repo_url }}"
+    state: present
+
+- name: Update repos
+  apt:
+    update_cache: yes
+
+- name: Install
+  apt:
+    pkg: "{{ mongo_pkg_name }}"
+
+- name: Setup conf
+  template:
+  args:
+    src: mongod.conf.j2
+    dest: "{{ mongo_conffile }}"
+    mode: 0664
+
+- name: Enable service
+  service:
+    name: "{{ mongo_service_name }}"
+    state: restarted
+    enabled: yes

@@ -1,0 +1,8 @@
+---
+
+- name: Section31-API
+  hosts: localhost
+
+  roles:
+    - mongo
+    - redis

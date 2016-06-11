@@ -1,0 +1,22 @@
+---
+
+# This should be installed in the home dir of the user that is going
+# to run the application in order to not mess with system python installs
+#
+# In addition the files that are downloaded for pyenv will get chowned
+# to the above user
+pyenv_install_dir: "/home/{{user}}"
+
+
+# Install all of these
+#
+# If the global property is set and true, that version will be set as the
+# global python version
+pyenv_python_versions:
+  - { ver: 2.7.8, global: true }
+  - { ver: 3.5.0, global: false }
+
+# Helpers
+pyenv_helper_root: "{{ pyenv_install_dir }}/.pyenv"
+pyenv_helper_bin: "{{ pyenv_install_dir }}/.pyenv/bin"
+pyenv_helper_vers: "{{ pyenv_install_dir }}/.pyenv/versions"

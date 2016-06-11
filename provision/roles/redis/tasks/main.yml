@@ -1,0 +1,48 @@
+---
+
+# Install Redis
+
+- name: Download
+  get_url:
+    url: http://download.redis.io/redis-stable.tar.gz
+    dest: /tmp
+  tags:
+    - build
+
+- name: Unpack
+  unarchive:
+    src: /tmp/redis-stable.tar.gz
+    dest: /tmp/
+  tags:
+    - build
+
+- name: Make and Install
+  shell: cd /tmp/redis-stable/ && make && make install
+  tags:
+    - build
+
+- name: Startup | Create Data Dir
+  command: mkdir -p /var/redis/
+
+- name: Startup | Conf
+  template:
+  args:
+    src: redis.conf.j2
+    dest: "{{ redis_conffile }}"
+    mode: 0764
+
+- name: Startup | Sys V
+  template:
+    src: redis_init_script.sh.j2
+    dest: /etc/init.d/redis
+    owner: root
+    mode: 0777
+
+- name: Include RedHat specific tasks
+  include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Include Debian specific tasks
+  include: Debian.yml
+  when: ansible_os_family == 'Debian'
+

@@ -1,0 +1,59 @@
+---
+
+# Install pyenv
+
+- name: Install pyenv
+  sudo: no
+  git:
+    repo: https://github.com/yyuu/pyenv.git
+    dest: "{{pyenv_helper_root}}"
+
+
+- name: Set permissions on repo
+  sudo: no
+  file:
+  args:
+    path: "{{pyenv_helper_root}}"
+    owner: "{{user}}"
+    group: "{{user}}"
+    mode: 0775
+
+
+- name: Setup pyenvrc
+  sudo: no
+  template:
+  args:
+    src: pyenvrc.j2
+    dest: "{{pyenv_install_dir}}/.pyenvrc"
+    owner: "{{user}}"
+    group: "{{user}}"
+    mode: 0644
+
+
+- name: Add pyenvrc to Bash Profile
+  sudo: no
+  shell: "{{ item }}"
+  args:
+    creates: "{{pyenv_install_dir}}/.pyenvrc-added"
+  with_items:
+    - "cat {{pyenv_install_dir}}/.pyenvrc >> {{pyenv_install_dir}}/.bash_profile"
+    - "echo 'true' >> {{pyenv_install_dir}}/.pyenvrc-added"
+    - "chown {{user}}:{{user}} {{pyenv_install_dir}}/.bash_profile"
+
+
+- name: Install Python Versions
+  sudo: no
+  shell: . {{pyenv_install_dir}}/.pyenvrc && pyenv install {{ item.ver }}
+  args:
+    creates: "{{pyenv_helper_vers}}/{{ item.ver }}/bin/python"
+  with_items: pyenv_python_versions
+
+- name: Set global version
+  sudo: no
+  shell: . {{pyenv_install_dir}}/.pyenvrc && pyenv global {{ item.ver }}
+  with_items: pyenv_python_versions
+  when: item.global
+
+- name : Set perms | Ownership
+  sudo: no
+  command: chown -R {{user}}:{{user}} "{{pyenv_install_dir}}/.pyenv"

@@ -1,0 +1,12 @@
+---
+
+- name: Install Global Packages
+  shell: . {{home_dir}}/.pyenvrc && pip install "{{item.pkg}}=={{item.ver}}"
+  with_items: pip_packages
+  when: not item.upgrade
+
+  # Wheel 0.24.0 was broken when this was written
+- name: Upgrade PIP Global Packages
+  shell: . {{home_dir}}/.pyenvrc && pip install --upgrade "{{item.pkg}}=={{item.ver}}"
+  with_items: pip_packages
+  when: item.upgrade

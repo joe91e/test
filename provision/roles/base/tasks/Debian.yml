@@ -1,0 +1,8 @@
+---
+
+- name: Update Repos
+  apt: update_cache=yes
+
+- name: Install Deabian Base Packages
+  apt: pkg={{item}} state=present
+  with_items: base_packages

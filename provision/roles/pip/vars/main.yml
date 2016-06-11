@@ -1,0 +1,7 @@
+---
+
+pip_packages:
+    - {pkg: wheel, ver: 0.26.0, upgrade: true}
+    - {pkg: virtualenv, ver: 13.1.2, upgrade: false}
+    - {pkg: docker-compose, ver: 1.4.2, upgrade: false }
+    - {pkg: watchdog, ver: 0.8.2, upgrade: false }

@@ -1,0 +1,9 @@
+---
+
+- name: Enable Service
+  command: update-rc.d redis defaults
+
+- name: Start service now
+  command: service redis restart
+  args:
+    creates: "{{ redis_pidfile }}"

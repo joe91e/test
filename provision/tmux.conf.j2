@@ -1,0 +1,10 @@
+# Putty has issue sending C-b
+unbind C-b
+set -g prefix F12
+bind F12 send-prefix
+
+# Less renaming when kicking off
+set-option -g allow-rename off
+
+# Some sugar
+bind b set-window-option synchronize-panes

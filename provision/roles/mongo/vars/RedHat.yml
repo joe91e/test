@@ -1,0 +1,13 @@
+---
+
+base_packages:
+  - sqlite
+  - sqlite-devel
+  - openssl-devel
+  - readline-devel
+  - libselinux-python
+  - vim
+  - curl
+  - zlib-devel
+  - bzip2 
+  - bzip2-devel

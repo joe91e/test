@@ -1,0 +1,32 @@
+---
+
+- name: Section31-API
+  hosts: localhost
+
+  roles:
+    - base
+    - pyenv
+    - mongo
+    - redis
+    - pip
+
+  tasks:
+
+    - name: tmux | Install
+      apt:
+        pkg: tmux
+        state: present
+
+    - name: tmux | Conf
+      template:
+        src: tmux.conf.j2
+        dest: "/home/{{user}}/.tmux.conf"
+        owner: "{{user}}"
+        group: "{{user}}"
+        mode: 0644
+      tags:
+        - this
+
+
+    - name: Confirm Bash Profile is owned by current user
+      command: "chown {{user}}:{{user}} /home/vagrant/.bash_profile"

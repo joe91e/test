@@ -1,0 +1,6 @@
+---
+# Defaults for all roles
+
+user: vagrant
+groups: vagrant
+home_dir: "/home/vagrant"

@@ -1,0 +1,16 @@
+---
+
+base_packages:
+  - sqlite
+  - libsqlite3-dev
+  - libssl-dev
+  - libreadline-dev
+  - libselinux1-dev
+  - vim
+  - curl
+  - zlib1g-dev
+  - bzip2
+  - libbz2-dev
+  - libpython2.7-dev
+  - libpython3-dev
+  - libpython3.4-dev
