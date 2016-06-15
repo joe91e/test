@@ -3,15 +3,16 @@ v1.0 features
 1. search bar that matches anything (cuisine, title, e.g.)
 2. search by ingredients (partial or full)
   -> order by 30% weight on ingredients + 70% popularity
-3. sort orders by relevance, popularity, rating
-4. application deployed to www.testsite.com and m.testsite.com (desktop & mobile)
+3. provide the suggestion/receipe of the day before displaying the result
+4. sort orders by relevance, popularity, rating
+5. application deployed to www.testsite.com and m.testsite.com (desktop & mobile)
 
 v1.1 features
 1. view recipes by categories
 2. display popular recipes
 3. user profile/settings/preferences
   -> save recipes
-  -> user preferences on search (for e.g. max cooking time)
+  -> user preferences on search (for e.g. max cooking time, exclude certain ingredients, special diet type)
   -> create account by facebook/google/or email.
 
 v1.2 features
