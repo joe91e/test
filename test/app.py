@@ -52,7 +52,14 @@ flavor.{sweet|meaty|sour|bitter|sweet|piquant}.{min|max}
 def hello_world():
     print(HttpRequestFactory)
     req_obj = HttpRequestFactory.create('requests')
-    req_obj.set_url("http://food2fork.com/api/search?key=e25d938164b9ac1b55f78a960991e820&q=beef,onion,tomatoes")
+    req_obj.set_headers(
+        {
+        'content-type': 'application/json',
+        'X-Yummly-App-ID': '9cce27e7',
+        'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
+        }
+    )
+    req_obj.set_url("http://api.yummly.com/v1/api/recipes?q=onion+soup")
     req_obj.get()
     res = req_obj.get_response_content()
     status_code = req_obj.get_response_status()
