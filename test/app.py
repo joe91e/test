@@ -6,6 +6,7 @@ from flask import Flask, session, make_response, jsonify
 from flask_restful import Api
 from handler.http_request_handler import HttpRequestFactory
 from redis import StrictRedis, ConnectionPool
+from handler.request_handler import RequestHandler
 
 redis_conn_pool = ConnectionPool(host='localhost', port=6379, db=0)
 redis_cache = StrictRedis(connection_pool=redis_conn_pool)
@@ -50,20 +51,19 @@ flavor.{sweet|meaty|sour|bitter|sweet|piquant}.{min|max}
 
 @app.route('/')
 def hello_world():
-    print(HttpRequestFactory)
     req_obj = HttpRequestFactory.create('requests')
-    req_obj.set_headers(
-        {
+    url = "http://api.yummly.com/v1/api/recipes?q=onion+soup"
+    url = "http://api.yummly.com/v1/api/recipes?q=filet+mignon"
+    headers = {
         'content-type': 'application/json',
         'X-Yummly-App-ID': '9cce27e7',
         'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
-        }
-    )
-    req_obj.set_url("http://api.yummly.com/v1/api/recipes?q=onion+soup")
-    req_obj.get()
-    res = req_obj.get_response_content()
-    status_code = req_obj.get_response_status()
-    return make_response(res, status_code)
+    }
+    req_handler = RequestHandler(req_obj, redis_cache)
+    res_tuple = req_handler.get(url, headers)
+    response = res_tuple[0]
+    status_code = res_tuple[1]
+    return make_response(response, status_code)
 
 @app.route('/metadata/<string:data_name>')
 def get_metadata(data_name):
