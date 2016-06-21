@@ -4,13 +4,15 @@ import pprint
 from werkzeug.exceptions import HTTPException, default_exceptions
 from flask import Flask, session, make_response, jsonify
 from flask_restful import Api
-from handler.http_request_handler import HttpRequestFactory
-from redis import StrictRedis, ConnectionPool
-from handler.request_handler import RequestHandler
+#from handler.http_request_handler import HttpRequestFactory
+#from redis import StrictRedis, ConnectionPool
+#from handler.request_handler import RequestHandler
+from resources.recipe_source import RecipeMetadata, RecipeSearch, Recipe
 
-redis_conn_pool = ConnectionPool(host='localhost', port=6379, db=0)
-redis_cache = StrictRedis(connection_pool=redis_conn_pool)
+#redis_conn_pool = ConnectionPool(host='localhost', port=6379, db=0)
+#redis_cache = StrictRedis(connection_pool=redis_conn_pool)
 app = Flask(__name__)
+api = Api(app)
 
 """
 YUMMLY API USAGE
@@ -49,39 +51,31 @@ flavor.{sweet|meaty|sour|bitter|sweet|piquant}.{min|max}
 
 """
 
-@app.route('/')
-def hello_world():
-    req_obj = HttpRequestFactory.create('requests')
-    url = "http://api.yummly.com/v1/api/recipes?q=onion+soup"
-    url = "http://api.yummly.com/v1/api/recipes?q=filet+mignon"
-    headers = {
-        'content-type': 'application/json',
-        'X-Yummly-App-ID': '9cce27e7',
-        'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
-    }
-    req_handler = RequestHandler(req_obj, redis_cache)
-    res_tuple = req_handler.get(url, headers)
-    response = res_tuple[0]
-    status_code = res_tuple[1]
-    return make_response(response, status_code)
+api.add_resource(RecipeMetadata, '/metadata/<string:data_name>')
+api.add_resource(RecipeSearch, '/recipes')
+api.add_resource(Recipe, '/recipe/<string:recipe_id>')
 
-@app.route('/metadata/<string:data_name>')
-def get_metadata(data_name):
-    url = '/metadata/' + data_name
-    redis_value = redis_cache.get(url)
-    if redis_value is not None:
-        return make_response(jsonify(message="returning from cache"), 200)
+"""
+@app.errorhandler(Exception)
+def system_error_handler(sys_error):
+    if isinstance(sys_error, HTTPException) or isinstance(sys_error, APIError):
+        message = sys_error.description
+        status_code = sys_error.code
     else:
-        redis_cache.set(url, 1)
-        return make_response(jsonify(message="caching [%s]" % url), 200)
+        message = str(sys_error)
+        status_code = 500
 
-@app.route('/search')
-def search_recipes():
-    return make_response(jsonify(message="hello"), 200)
+    error_info = traceback.format_exc()
+    # log_all_exceptions()
 
-@app.route('/recipe/<int:recipe_id>')
-def get_recipe(recipe_id):
-    return make_response(jsonify(recipe_id=recipe_id), 200)
+    # This should be skipped depending on config
+    print(error_info)
+    return make_response(jsonify(message=message), status_code)
+
+for error in default_exceptions.items():
+    app.error_handler_spec[None][error] = system_error_handler
+    app.error_handler_spec[None][error[0]] = system_error_handler
+"""
 
 if __name__ == '__main__':
      app.run(
