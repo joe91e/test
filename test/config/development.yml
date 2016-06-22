@@ -1,0 +1,16 @@
+---
+DEBUG: True
+TESTING: True
+
+STORAGE: {
+    DB: {
+        HOST: 'localhost',
+        PORT: 27017,
+        NAME: 'test'
+    },
+    REDIS:{
+        HOST: 'localhost',
+        PORT: 6379,
+        NAME: 'test'
+    }
+}

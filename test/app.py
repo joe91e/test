@@ -4,13 +4,11 @@ import pprint
 from werkzeug.exceptions import HTTPException, default_exceptions
 from flask import Flask, session, make_response, jsonify
 from flask_restful import Api
+from services import CFG_OBJ
 from resources.recipe_source import RecipeMetadata, RecipeSearch, Recipe
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['TESTING'] = True
-app.config['TRAP_HTTP_EXCEPTIONS'] = True
-app.config['TRAP_BAD_REQUEST_ERRORS'] = True
+app.config.from_object(CFG_OBJ)
 api = Api(app)
 
 """
@@ -115,7 +113,4 @@ for error in default_exceptions.items():
     app.error_handler_spec[None][error[0]] = system_error_handler
 
 if __name__ == '__main__':
-     app.run(
-      host='0.0.0.0',
-      port=8000
-     )
+     app.run(**CFG_OBJ.FLASK_RUN_OPTS)

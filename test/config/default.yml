@@ -1,0 +1,15 @@
+---
+
+# --------------------------------------------------------------------------- #
+# => FLASK
+THREADED: False
+SECRET_KEY: 'super_secret_key'
+SESSION_COOKIE_NAME: 'session_cookie'
+TRAP_HTTP_EXCEPTIONS: True
+TRAP_BAD_REQUEST_ERRORS: True
+JSON_SORT_KEYS: False
+FLASK_RUN_OPTS: {
+    host: '0.0.0.0',
+    port: 8000
+}
+# --------------------------------------------------------------------------- #
