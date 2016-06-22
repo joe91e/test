@@ -1,5 +1,13 @@
 from flask_restful import Resource
 from flask import request
+from handler.http_request_handler import HttpRequestFactory
+from redis import StrictRedis, ConnectionPool
+from handler.request_handler import RequestHandler
+import json
+
+redis_conn_pool = ConnectionPool(host='localhost', port=6379, db=0)
+redis_cache = StrictRedis(connection_pool=redis_conn_pool)
+
 LIMIT = "maxResult"
 LIMIT_DEFAULT = 6
 OFFSET = "start"
@@ -8,6 +16,15 @@ OFFSET_DEFAULT = 0
 
 class BaseResource(Resource):
     api_request = request
+    req_obj = HttpRequestFactory.create('requests')
+    headers = {
+        'content-type': 'application/json',
+        'X-Yummly-App-ID': '9cce27e7',
+        'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
+    }
+    req_obj.set_headers(headers)
+    req_handler = RequestHandler(req_obj, redis_cache)
+
 
     def __init__(self):
         super(BaseResource, self).__init__()
