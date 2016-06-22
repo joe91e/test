@@ -89,13 +89,13 @@ class HttpRequest(HttpRequestAbstract):
         pass
 
     def get_response_content(self):
-        if self._response:
+        if self._response.text:
             return self._response.text
         else:
             return None
 
     def get_response_status(self):
-        if self._response:
+        if self._response.status_code:
             return self._response.status_code
         else:
             return None

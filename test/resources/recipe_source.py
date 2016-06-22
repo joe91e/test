@@ -12,12 +12,34 @@ redis_cache = StrictRedis(connection_pool=redis_conn_pool)
 class RecipeMetadata(BaseResource):
     def get(self, data_name):
         query_url = "{}".format(self.api_request.path)
-        cache_value = redis_cache.get(query_url)
-        if cache_value is not None and cache_value != "None":
-            return make_response(jsonify(message="returning from cache"), 200)
-        else:
-            redis_cache.set(query_url, 1)
-            return make_response(jsonify(message="caching [%s]" % query_url), 200)
+
+        req_obj = HttpRequestFactory.create('requests')
+        url = "http://api.yummly.com/v1/api{}".format(query_url)
+        headers = {
+            'content-type': 'application/json',
+            'X-Yummly-App-ID': '9cce27e7',
+            'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
+        }
+        req_handler = RequestHandler(req_obj, redis_cache)
+        res_tuple = req_handler.get(url, headers)
+        response_text = res_tuple[0]
+        status_code = res_tuple[1]
+
+        try:
+            response_text = json.loads(response_text)
+        except ValueError:
+            pass
+
+        print(response_text)
+        response = {
+            "data": response_text
+        }
+        print(response)
+        return Response(
+            response=json.dumps(response),
+            status=status_code,
+            mimetype='application/json'
+        )
 
 
 class RecipeSearch(BaseResource):
@@ -36,10 +58,13 @@ class RecipeSearch(BaseResource):
         }
         req_handler = RequestHandler(req_obj, redis_cache)
         res_tuple = req_handler.get(url, headers)
-        response = res_tuple[0]
+        response_text = res_tuple[0]
+        response = {
+            "data": json.loads(response_text)
+        }
         status_code = res_tuple[1]
         return Response(
-            response=response,
+            response=json.dumps(response),
             status=status_code,
             mimetype='application/json'
         )
