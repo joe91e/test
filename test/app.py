@@ -4,14 +4,13 @@ import pprint
 from werkzeug.exceptions import HTTPException, default_exceptions
 from flask import Flask, session, make_response, jsonify
 from flask_restful import Api
-#from handler.http_request_handler import HttpRequestFactory
-#from redis import StrictRedis, ConnectionPool
-#from handler.request_handler import RequestHandler
 from resources.recipe_source import RecipeMetadata, RecipeSearch, Recipe
 
-#redis_conn_pool = ConnectionPool(host='localhost', port=6379, db=0)
-#redis_cache = StrictRedis(connection_pool=redis_conn_pool)
 app = Flask(__name__)
+app.config['DEBUG'] = True
+app.config['TESTING'] = True
+app.config['TRAP_HTTP_EXCEPTIONS'] = True
+app.config['TRAP_BAD_REQUEST_ERRORS'] = True
 api = Api(app)
 
 """
@@ -56,9 +55,48 @@ api.add_resource(RecipeSearch, '/recipes')
 api.add_resource(Recipe, '/recipe/<string:recipe_id>')
 
 """
+def log_all_exceptions():
+    exc_type, exc_value, exc_tb = sys.exc_info()
+    error_list = traceback.format_exception(exc_type, exc_value, exc_tb)
+    parsed_exceptions = parse_traceback(error_list)
+    for exception in parsed_exceptions:
+        # logger.log(exception)
+        pass
+
+
+def parse_traceback(traceback_list):
+    parsed_output = []
+
+    another_exception_msg = 'During handling of the above exception, another exception occurred:'
+    new_exception_msg = 'Traceback (most recent call last):'
+    exception_location = 'File "/'
+    exception_separator = '-' * 80
+    message_separator = '=' * 80
+
+    cur_exception_info = ''
+
+    for traceback_line in traceback_list:
+        if another_exception_msg in traceback_line or new_exception_msg in traceback_line:
+            if cur_exception_info != '':
+                parsed_output.append(cur_exception_info)
+                parsed_output.append(exception_separator)
+                cur_exception_info = ''
+        elif exception_location in traceback_line:
+            cur_exception_info = traceback_line
+        else:
+            cur_exception_info += traceback_line
+
+    if cur_exception_info != '':
+        parsed_output.append(cur_exception_info)
+        parsed_output.insert(0, message_separator)
+        parsed_output.append(message_separator)
+
+    return parsed_output
+"""
+
 @app.errorhandler(Exception)
 def system_error_handler(sys_error):
-    if isinstance(sys_error, HTTPException) or isinstance(sys_error, APIError):
+    if isinstance(sys_error, HTTPException): #or isinstance(sys_error, APIError):
         message = sys_error.description
         status_code = sys_error.code
     else:
@@ -75,7 +113,6 @@ def system_error_handler(sys_error):
 for error in default_exceptions.items():
     app.error_handler_spec[None][error] = system_error_handler
     app.error_handler_spec[None][error[0]] = system_error_handler
-"""
 
 if __name__ == '__main__':
      app.run(

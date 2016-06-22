@@ -12,7 +12,6 @@ class RequestHandler(object):
         if cache_value is not None and cache_value != "None":
             res = self._cache_request_handler.get(url)
             print("returning from cache")
-            #print(res)
             return (res, 200)
         else:
             if len(headers) > 0:
