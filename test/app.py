@@ -5,6 +5,7 @@ from werkzeug.exceptions import HTTPException, default_exceptions
 from flask import Flask, session, make_response, jsonify
 from flask_restful import Api
 from services import CFG_OBJ
+from utils.logger import LoggerFactory
 from resources.recipe_source import RecipeMetadata, RecipeSearch, Recipe
 
 app = Flask(__name__)
@@ -113,4 +114,8 @@ for error in default_exceptions.items():
     app.error_handler_spec[None][error[0]] = system_error_handler
 
 if __name__ == '__main__':
+     logger = LoggerFactory.create('file', './test.log')
+     print(logger)
+     #logger.log("test")
+     #print(log)
      app.run(**CFG_OBJ.FLASK_RUN_OPTS)

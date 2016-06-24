@@ -7,7 +7,7 @@ from handler.storage_handler import RedisAdapter
 import json
 
 """
-@ick: move these four constants into constants/__init__.py
+@ICK: move these four constants into constants/__init__.py
 add `import constants` at the top.
 access constants by constants.CONSTANT_NAME.
 Replace constants being used in the BaseResource class
@@ -28,7 +28,7 @@ class BaseResource(Resource):
         self.api_request = request
         self.req_obj = HttpRequestFactory.create('requests')
         """
-        @ick: try moving these headers to the config file!
+        @ICK: try moving these headers to the config file!
         """
         headers = {
             'content-type': 'application/json',

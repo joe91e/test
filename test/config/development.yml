@@ -14,3 +14,11 @@ STORAGE: {
         NAME: 'test'
     }
 }
+
+LOGGING: {
+    TYPE: 'file',
+    PATH: './',
+    FILENAME: 'app_log',
+    FILETYPE: '.log',
+    APPEND_DATE: True
+}
