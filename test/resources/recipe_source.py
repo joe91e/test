@@ -77,33 +77,27 @@ class RecipeSearch(BaseResource):
 
 class Recipe(BaseResource):
     def get(self, recipe_id):
-        # @ICK:
-        # hit http://api.yummly.com/v1/api/recipe/<recipe_id>
-        # where <recipe_id> will be replaced by the recipe_id passed in
-        # as an argument
-
         # parse url
-        """
-        @ICK: your parse url code here
-        """
+        url = "http://api.yummly.com/v1/api/recipe/{}".format(recipe_id)
 
         # setup and make request
-        """
-        @ICK: your setup and make request here
-        """
-
-        # parse and return reseponse
-        """
-        @ICK: your parse and return response here!
-        in the end, the response should look like
-        {
-            "data": <JSON returned from api.yummly.com>
+        req_obj = HttpRequestFactory.create('requests')
+        headers = {
+            'content-type': 'application/json',
+            'X-Yummly-App-ID': '9cce27e7',
+            'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
         }
-        """
-        response = {}
+        req_handler = RequestHandler(req_obj, redis_cache)
+        res_tuple = req_handler.get(url, headers)
 
+        # parse and return response
+        response_text = res_tuple[0]
+        response = {
+            "data": json.loads(response_text)
+        }
+        status_code = res_tuple[1]
         return Response(
             response=json.dumps(response),
-            status=200,
+            status=status_code,
             mimetype='application/json'
         )
