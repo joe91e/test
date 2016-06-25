@@ -1,6 +1,7 @@
 ---
 DEBUG: True
 TESTING: True
+USE_RELOADER: False
 
 STORAGE: {
     DB: {
@@ -17,7 +18,7 @@ STORAGE: {
 
 LOGGING: {
     TYPE: 'file',
-    PATH: './',
+    PATH: './test.log',
     FILENAME: 'app_log',
     FILETYPE: '.log',
     APPEND_DATE: True

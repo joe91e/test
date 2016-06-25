@@ -77,6 +77,7 @@ class RecipeSearch(BaseResource):
 
 class Recipe(BaseResource):
     def get(self, recipe_id):
+        a = 1/0
         # @ICK:
         # hit http://api.yummly.com/v1/api/recipe/<recipe_id>
         # where <recipe_id> will be replaced by the recipe_id passed in

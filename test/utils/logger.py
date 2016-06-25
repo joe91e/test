@@ -86,9 +86,10 @@ class LoggerFactory:
     @staticmethod
     def create(log_type, filename=''):
         if log_type == 'file':
+            if filename == '' or filename is None:
+                raise TypeError('Filename not given!')
             logger = logging.getLogger()
             logger.setLevel(logging.INFO)
-            print(filename)
             return LoggerFile(logger, None, filename)
         elif log_type == 'stream':
             logger = logging.getLogger()

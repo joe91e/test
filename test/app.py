@@ -7,6 +7,7 @@ from flask_restful import Api
 from services import CFG_OBJ
 from utils.logger import LoggerFactory
 from resources.recipe_source import RecipeMetadata, RecipeSearch, Recipe
+from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_object(CFG_OBJ)
@@ -49,20 +50,21 @@ flavor.{sweet|meaty|sour|bitter|sweet|piquant}.{min|max}
 
 """
 
+# register routes
 api.add_resource(RecipeMetadata, '/metadata/<string:data_name>')
 api.add_resource(RecipeSearch, '/recipes')
 api.add_resource(Recipe, '/recipe/<string:recipe_id>')
 
-"""
-def log_all_exceptions():
+# function to log all exceptions from python system traceback
+def log_all_exceptions(logger):
+    logger.log("\nException occurred at: {}".format(datetime.now()))
     exc_type, exc_value, exc_tb = sys.exc_info()
     error_list = traceback.format_exception(exc_type, exc_value, exc_tb)
     parsed_exceptions = parse_traceback(error_list)
     for exception in parsed_exceptions:
-        # logger.log(exception)
-        pass
+        logger.log(exception)
 
-
+# parse the python system traceback so that we can print/log
 def parse_traceback(traceback_list):
     parsed_output = []
 
@@ -91,8 +93,8 @@ def parse_traceback(traceback_list):
         parsed_output.append(message_separator)
 
     return parsed_output
-"""
 
+# catch ALL errors within the app. this is how we centralize error handling
 @app.errorhandler(Exception)
 def system_error_handler(sys_error):
     if isinstance(sys_error, HTTPException): #or isinstance(sys_error, APIError):
@@ -103,10 +105,11 @@ def system_error_handler(sys_error):
         status_code = 500
 
     error_info = traceback.format_exc()
-    # log_all_exceptions()
+    log_all_exceptions(logger)
 
     # This should be skipped depending on config
-    print(error_info)
+    if(CFG_OBJ.get('DEBUG') == True):
+        print(error_info)
     return make_response(jsonify(message=message), status_code)
 
 for error in default_exceptions.items():
@@ -114,8 +117,16 @@ for error in default_exceptions.items():
     app.error_handler_spec[None][error[0]] = system_error_handler
 
 if __name__ == '__main__':
-     logger = LoggerFactory.create('file', './test.log')
-     print(logger)
-     #logger.log("test")
-     #print(log)
-     app.run(**CFG_OBJ.FLASK_RUN_OPTS)
+    # setup logger
+    log_type = CFG_OBJ.get('LOGGING.TYPE')
+    log_path = CFG_OBJ.get('LOGGING.PATH')
+    logger = LoggerFactory.create(log_type, log_path)
+
+    # log the app start message with a timestamp
+    separator = '*' * 80
+    logger.log("\n" + separator)
+    logger.log("Application Starting :: {}".format(datetime.now()))
+    logger.log("\n" + separator)
+
+    # run the app
+    app.run(**CFG_OBJ.FLASK_RUN_OPTS)
