@@ -1,3 +1,5 @@
 .vagrant/
 *.pyc
 *.log
+*.DS_STORE
+test/node_modules
