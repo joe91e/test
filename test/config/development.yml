@@ -1,0 +1,25 @@
+---
+DEBUG: True
+TESTING: True
+USE_RELOADER: False
+
+STORAGE: {
+    DB: {
+        HOST: 'localhost',
+        PORT: 27017,
+        NAME: 'test'
+    },
+    REDIS:{
+        HOST: 'localhost',
+        PORT: 6379,
+        NAME: 'test'
+    }
+}
+
+LOGGING: {
+    TYPE: 'file',
+    PATH: './test.log',
+    FILENAME: 'app_log',
+    FILETYPE: '.log',
+    APPEND_DATE: True
+}

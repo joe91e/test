@@ -1,6 +1,5 @@
 .vagrant/
 *.pyc
+*.log
 *.DS_STORE
 test/node_modules
-test/handler/__init__.pyc
-test/handler/http_request_handler.pyc
