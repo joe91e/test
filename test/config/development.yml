@@ -23,3 +23,9 @@ LOGGING: {
     FILETYPE: '.log',
     APPEND_DATE: True
 }
+
+HEADERS: {
+        'content-type': 'application/json',
+        'X-Yummly-App-ID': '9cce27e7', #need to change later
+        'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6' # need to change later
+}
