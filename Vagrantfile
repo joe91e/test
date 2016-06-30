@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
     config.vm.define 'sandbox' do |sandbox|
-        sandbox.vm.box = "phusion/ubuntu-14.04-amd64"
+        sandbox.vm.box = "ubuntu/trusty64"
 
         # @todo Read this from a config file perhaps?
         sandbox.vm.network "forwarded_port", guest: 8000, host: 5000
