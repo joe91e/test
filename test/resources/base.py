@@ -5,17 +5,7 @@ from redis import StrictRedis, ConnectionPool
 from handler.request_handler import RequestHandler
 from handler.storage_handler import RedisAdapter
 import json
-
-"""
-@ICK: move these four constants into constants/__init__.py
-add `import constants` at the top.
-access constants by constants.CONSTANT_NAME.
-Replace constants being used in the BaseResource class
-from `CONSTANT_NAME` -> to `constants.CONSTANT_NAME`
-and then remove these below four lines once they are no longer being
-referenced (no longer needed).
-"""
-
+from services import CFG_OBJ
 
 
 class BaseResource(Resource):
@@ -24,7 +14,7 @@ class BaseResource(Resource):
         super(BaseResource, self).__init__()
         self.api_request = request
         self.req_obj = HttpRequestFactory.create('requests')
-        self.req_obj.set_headers(headers)
+        self.req_obj.set_headers(CFG_OBJ.get('HEADERS'))
         redis_adapter = RedisAdapter()
         self.redis_cache = redis_adapter.get_instance()
         self.req_handler = RequestHandler(self.req_obj, self.redis_cache)
