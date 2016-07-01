@@ -53,14 +53,7 @@ class RecipeSearch(BaseResource):
         url = "http://api.yummly.com/v1/api{}".format(query_url)
 
         # setup and make request
-        req_obj = HttpRequestFactory.create('requests')
-        headers = {
-            'content-type': 'application/json',
-            'X-Yummly-App-ID': '9cce27e7',
-            'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
-        }
-        req_handler = RequestHandler(req_obj, redis_cache)
-        res_tuple = req_handler.get(url, headers)
+        res_tuple = self.req_handler.get(url)
 
         # parse and return response
         response_text = res_tuple[0]
@@ -81,14 +74,7 @@ class Recipe(BaseResource):
         url = "http://api.yummly.com/v1/api/recipe/{}".format(recipe_id)
 
         # setup and make request
-        req_obj = HttpRequestFactory.create('requests')
-        headers = {
-            'content-type': 'application/json',
-            'X-Yummly-App-ID': '9cce27e7',
-            'X-Yummly-App-Key': 'b13c741344519e5f89cb0edb7e8043f6'
-        }
-        req_handler = RequestHandler(req_obj, redis_cache)
-        res_tuple = req_handler.get(url, headers)
+        res_tuple = self.req_handler.get(url)
 
         # parse and return response
         response_text = res_tuple[0]
