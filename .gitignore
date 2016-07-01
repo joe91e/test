@@ -3,4 +3,4 @@
 *.log
 *.DS_STORE
 test/node_modules
-react-redux-starter-kit/node_modules
+frontend/node_modules
