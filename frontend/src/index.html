@@ -18,9 +18,13 @@
     }
 
     .jumbotron {
-      background-image: url(http://s3-ap-southeast-2.amazonaws.com/asset.winning.com.au/bhc/uploads/2012/10/round-plate.jpg);
+      /*background-image: url(http://s3-ap-southeast-2.amazonaws.com/asset.winning.com.au/bhc/uploads/2012/10/round-plate.jpg);*/
+      background-image: linear-gradient(to bottom, #4289ad 0px, #D9EDF7 100%);
+      background-repeat: repeat-x;
+      background-color: #4289ad;
       background-attachment: fixed;
       background-size: contain;
+      color: #fff;
     }
 
     /* Add a gray background color and some padding to the footer */
@@ -29,10 +33,17 @@
       padding: 25px;
     }
   </style>
+  <style>
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width: 70%;
+      margin: auto;
+  }
+  </style>
 </head>
-<body>
+<body style="background-color: #f2f2f2;">
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -69,7 +80,7 @@
       </form>
   </div>
 </div>
-
+<div class="container" style="background-color: #ffffff;">
 <div class="container-fluid bg-3 text-center">
   <h3>Daily Best</h3><br>
 
@@ -99,26 +110,6 @@
     </div>
   </div> -->
 
-
-
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <style>
-    .carousel-inner > .item > img,
-    .carousel-inner > .item > a > img {
-        width: 70%;
-        margin: auto;
-    }
-    </style>
-  </head>
-  <body>
 
   <div class="container">
     <br>
@@ -179,14 +170,6 @@
       </a>
     </div>
   </div>
-
-  </body>
-  </html>
-
-
-
-
-
 
   <div class="w3-section w3-bottombar w3-padding-10">
       <span class="w3-margin-right">Filter:</span>
@@ -280,7 +263,7 @@
     </div>
   </div>
 </div><br><br>
-
+</div><!-- div class well-->
 <footer class="container-fluid text-center">
   <p>Footer Text</p>
 </footer>
