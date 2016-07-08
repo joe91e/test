@@ -1,12 +1,117 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>React Redux Starter Kit</title>
+  <title>Customiz-Eat</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <div id="root" style="height: 100%"></div>
+  <!--<div id="root" style="height: 100%"></div>-->
+  <div class="container">
+    <nav class="navbar navbar-default" style="">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Customiz-Eat&nbsp;<span class="glyphicon glyphicon-cutlery"></span></a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="btn-lg dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Browse <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">One more separated link</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <form class="navbar-form navbar-left" role="search">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Find a recipe!">
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </div>
+            </div>
+            &nbsp;
+            <button type="submit" class="btn btn-default">
+              Ingredient Search&nbsp;
+              <span class="glyphicon glyphicon-plus"></span>
+              /
+              <span class="glyphicon glyphicon-minus"></span>
+            </button>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle btn-lg" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span class="glyphicon glyphicon-cog"></span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="">
+              <a class="btn-lg" href="#heart">
+                <span class="glyphicon glyphicon-heart"></span>
+              </a>
+            </li>
+            <li>
+              <a class="btn-lg" href="#add_recipe">
+                <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav><!-- end of navbar -->
+    <div class="container-fluid well" style="margin-top: 0px; border: 1px solid #ddd; border-radius: 4px 4px 0 0; padding: 15px; background-color: rgba(252, 248, 227, 0.5);">
+      <div class="row">
+        <div class="col-sm-6 col-md-4">
+          <div class="thumbnail">
+            <br/>
+            <img src="http://images.media-allrecipes.com/userphotos/250x250/00/80/33/803322.jpg"
+              alt=""
+              class="img-rounded">
+            <div class="caption">
+              <h4><a href="#open_recipe" style="color: #555;">Recipe name</a></h4>
+              <p>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-star-empty"></span>
+                12 reviews
+              </p>
+              <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end of div.container -->
 </body>
 </html>
