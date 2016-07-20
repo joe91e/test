@@ -11,17 +11,25 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <style>
+
+  body {
+    font-family: 'Nanum Gothic', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+  }
+
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
     }
 
+    div.thumbnail{
+    }
+
     .jumbotron {
       /*background-image: url(http://s3-ap-southeast-2.amazonaws.com/asset.winning.com.au/bhc/uploads/2012/10/round-plate.jpg);*/
-      background-image: linear-gradient(to bottom, #4289ad 0px, #D9EDF7 100%);
       background-repeat: repeat-x;
-      background-color: #4289ad;
+      background-color: #FCA08D;
       background-attachment: fixed;
       background-size: contain;
       color: #fff;
@@ -29,10 +37,116 @@
 
     /* Add a gray background color and some padding to the footer */
     footer {
-      background-color: #f2f2f2;
+      display: block;
+      background-color: #161616;
       padding: 25px;
+      margin-left: auto;
+      margin-right: auto;
     }
+
+    ::selection {
+    color: #000;
+    background: #FCA08D;
+    }
+
+
+    .hovereffect {
+      width: 100%;
+      height: 100%;
+      float: left;
+      overflow: hidden;
+      position: relative;
+      text-align: center;
+      cursor: default;
+    }
+
+    .hovereffect .overlay {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      background-color: rgba(0,0,0,0.5);
+      -webkit-transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+      transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+    }
+
+    .hovereffect img {
+      display: block;
+      position: relative;
+      -webkit-transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+      transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+    }
+
+    .hovereffect h3 {
+      text-transform: uppercase;
+      color: #ffffff;
+      text-align: center;
+      position: relative;
+      font-size: 17px;
+      background: rgba(0,0,0,0.6);
+      -webkit-transform: translatey(-100px);
+      -ms-transform: translatey(-100px);
+      transform: translatey(-100px);
+      -webkit-transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+      transition: all 0.4s cubic-bezier(0.88,-0.99, 0, 1.81);
+      padding: 10px;
+    }
+
+    .hovereffect a.info {
+      text-decoration: none;
+      display: inline-block;
+      text-transform: uppercase;
+      color: #fff;
+      border: 1px solid #fff;
+      background-color: transparent;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      -webkit-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+      margin: 50px 0 0;
+      padding: 7px 14px;
+    }
+
+    .hovereffect a.info:hover {
+      box-shadow: 0 0 5px #fff;
+    }
+
+    .hovereffect:hover img {
+      -ms-transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+    }
+
+    .hovereffect:hover .overlay {
+      opacity: 1;
+      filter: alpha(opacity=100);
+    }
+
+    .hovereffect:hover h3,.hovereffect:hover a.info {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      -ms-transform: translatey(0);
+      -webkit-transform: translatey(0);
+      transform: translatey(0);
+    }
+
+    .hovereffect:hover a.info {
+      -webkit-transition-delay: .2s;
+      transition-delay: .2s;
+    }
+
+    img.img-responsive{
+      min-height: 205px;
+      max-height: 205px;
+    }
+
   </style>
+
+
   <style>
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
@@ -41,7 +155,7 @@
   }
   </style>
 </head>
-<body style="background-color: #f2f2f2;">
+<body style="background-color: #ffffff;">
 
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -129,69 +243,47 @@
       </div>
     </div>
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
   </div>
 
 
   <div class="w3-section w3-bottombar w3-padding-10">
-      <span class="w3-margin-right">Filter:</span>
-      <button class="w3-btn w3-white"><i class="fa fa-heart w3-margin-right"></i>Most Viewed</button>
-      <button class="w3-btn w3-white w3-hide-small"><i class="fa fa-thumbs-up w3-margin-right"></i>Recommand</button>
-      <button class="w3-btn w3-white w3-hide-small"><i class="fa fa-exclamation w3-margin-right"></i>Least Need</button>
+      <span class="w3-margin-right">Sort by</span>
+      <button class="w3-btn w3-white"><i class="fa fa-heart w3-margin-right"></i>Relevance</button>
+      <button class="w3-btn w3-white w3-hide-small"><i class="fa fa-thumbs-up w3-margin-right"></i>Recommend</button>
+      <button class="w3-btn w3-white w3-hide-small"><i class="fa fa-exclamation w3-margin-right"></i>Time</button>
   </div>
-
 
   <div class="row">
-  <div class="col-sm-6 col-md-3">
-    <div class="thumbnail">
-      <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-      <div class="caption">
-        <h3>Fleming's Steak</h3>
-        <p>Medium-Rare steak </p>
-        <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-          </button></p>
-      </div>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <div class="hovereffect">
+          <img class="img-responsive center-block" src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="Responsive image">
+            <div class="overlay">
+               <h3> 맛보장 스테이크!</h3>
+               <a class="info" href="#"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>30 Min.</a>
+            </div>
+        </div>
+        <div class="caption">
+          <p style="font-size: 1pt;">&nbsp;</p>
+          <h3>Fleming's Steak</h3>
+          <p>Medium-Rare steak</p>
+          <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
+            </button></p>
+        </div>
     </div>
   </div>
 
-  <div class="col-sm-6 col-md-3">
+  <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-      <div class="caption">
-        <h3>Fleming's Steak</h3>
-        <p>Medium-Rare steak</p>
-        <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-          </button></p>
-      </div>
-    </div>
-  </div>
+      <div class="hovereffect">
+          <img class="img-responsive col-xs-12 center-block" src="http://bbqworld.org/wp-content/uploads/2016/05/28-day-Dry-Aged-Sirloin11.jpg" alt="">
 
-  <div class="col-sm-6 col-md-3">
-    <div class="thumbnail">
-      <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-      <div class="caption">
-        <h3>Fleming's Steak</h3>
-        <p>Medium-Rare steak</p>
-        <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-          </button></p>
+          <div class="overlay">
+             <h3> 맛보장 스테이크!</h3>
+             <a class="info" href="#"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>30 Min.</a>
+          </div>
       </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6 col-md-3">
-    <div class="thumbnail">
-      <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
       <div class="caption">
         <h3>Fleming's Steak</h3>
         <p>Medium-Rare steak</p>
@@ -199,27 +291,62 @@
           <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
           </button></p>
       </div>
-    </div>
   </div>
 </div>
+
+
+<div class="col-sm-6 col-md-4">
+  <div class="thumbnail">
+    <div class="hovereffect" class="center-block">
+        <img class="img-responsive" src="https://7b30cfc4a1b0ada1cdb2-893624c4eafa7bb58a8641a0ccf4ceea.ssl.cf1.rackcdn.com/steak-skewer-eggs-skillet_thumb-m.jpg?mod=635870948799730000" alt="">
+        <div class="overlay">
+           <h3> 맛보장 스테이크!</h3>
+           <a class="info" href="#"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>30 Min.</a>
+        </div>
+    </div>
+    <div class="caption">
+      <h3>Fleming's Steak</h3>
+      <p>Medium-Rare steak</p>
+      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
+        </button></p>
+    </div>
+</div>
+</div>
+</div>
+
 
 <div class="row">
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="hovereffect" class="center-block">
+          <img class="img-responsive" src="http://res.cloudinary.com/paleoleap/image/upload/f_auto,q_80/v1429434531/balsamic-steak-rolls-main_tmn7p2.jpg" alt=""
+          style="width:340px;height:240px">
+          <div class="overlay">
+             <h3> 맛보장 스테이크!</h3>
+             <a class="info" href="#"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>30 Min.</a>
+          </div>
+      </div>
+      <div class="caption">
+        <h3>Fleming's Steak</h3>
+        <p>Medium-Rare steak</p>
+        <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
+          </button></p>
+      </div>
   </div>
 </div>
 
-<div class="col-sm-6 col-md-3">
+<div class="col-sm-6 col-md-4">
   <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
+    <div class="hovereffect">
+        <img class="img-responsive" src="http://www.onceuponachef.com/images/2010/12/slicing-steak.jpg" alt=""
+        style="width:340px;height:240px">
+        <div class="overlay">
+           <h3> 맛보장 스테이크!</h3>
+           <a class="info" href="#"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>30 Min.</a>
+        </div>
+    </div>
     <div class="caption">
       <h3>Fleming's Steak</h3>
       <p>Medium-Rare steak</p>
@@ -227,94 +354,60 @@
         <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
         </button></p>
     </div>
-  </div>
-</div>
-
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
-  </div>
-</div>
-
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
-  </div>
 </div>
 </div>
 
-<div class="row">
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
+
+<div class="col-sm-6 col-md-4">
+<div class="thumbnail">
+  <div class="hovereffect">
+      <img class="img-responsive" src="http://charsteakhouse.com/wp-content/uploads/2013/07/Char-Steakhouse-0008.jpg" alt=""
+      style="width:340px;height:240px">
+      <div class="overlay">
+         <h3> 맛보장 스테이크!</h3>
+         <a class="info" href="#"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>30 Min.</a>
+      </div>
+  </div>
+  <div class="caption">
+    <h3>Fleming's Steak</h3>
+    <p>Medium-Rare steak</p>
+    <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
+      </button></p>
   </div>
 </div>
-
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
-  </div>
-</div>
-
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
-  </div>
-</div>
-
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
-  </div>
 </div>
 </div>
 
 <div class="row">
-<div class="col-sm-6 col-md-3">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <div class="hovereffect">
+          <img class="img-responsive" src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="">
+          <div class="overlay">
+             <h3> 맛보장 스테이크!</h3>
+             <a class="info" href="#"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i>30 Min.</a>
+          </div>
+      </div>
+      <div class="caption">
+        <h3>Fleming's Steak</h3>
+        <p>Medium-Rare steak</p>
+        <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+          <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
+          </button></p>
+      </div>
+  </div>
+</div>
+
+<div class="col-sm-6 col-md-4">
   <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
+    <div class="hovereffect">
+        <img class="img-responsive" src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="">
+        <div class="overlay">
+           <h3> 맛보장 스테이크!</h3>
+           <a class="info" href="#">save</a>
+        </div>
+    </div>
     <div class="caption">
       <h3>Fleming's Steak</h3>
       <p>Medium-Rare steak</p>
@@ -322,53 +415,36 @@
         <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
         </button></p>
     </div>
-  </div>
+</div>
 </div>
 
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
-  </div>
-</div>
 
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
+<div class="col-sm-6 col-md-4">
+<div class="thumbnail">
+  <div class="hovereffect">
+      <img class="img-responsive" src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="">
+      <div class="overlay">
+         <h3> 맛보장 스테이크!</h3>
+         <a class="info" href="#">save</a>
+      </div>
   </div>
-</div>
-
-<div class="col-sm-6 col-md-3">
-  <div class="thumbnail">
-    <img src="https://frontroweats.files.wordpress.com/2011/06/img_0451.jpg" alt="...">
-    <div class="caption">
-      <h3>Fleming's Steak</h3>
-      <p>Medium-Rare steak</p>
-      <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
-        <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
-        </button></p>
-    </div>
+  <div class="caption">
+    <h3>Fleming's Steak</h3>
+    <p>Medium-Rare steak</p>
+    <p><button type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span> Save
+      </button></p>
   </div>
 </div>
 </div>
+</div>
 
 
+</div>
 </div><!-- div class well-->
-<footer class="container-fluid text-center">
+
+</body>
+<footer class="container-fluid text-center" style="background-color: #161616;">
   <p>Footer Text</p>
 </footer>
-</body>
 </html>
