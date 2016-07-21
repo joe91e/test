@@ -11,28 +11,22 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <style>
-
-  body {
-    font-family: 'Nanum Gothic', Helvetica, Arial, sans-serif;
-    font-size: 15px;
-  }
-
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
       margin-bottom: 0;
       border-radius: 0;
     }
 
-    div.thumbnail{
+    .w3-bottombar{
+      border-bottom: 1px solid #000 !important;
     }
 
-    .jumbotron {
-      /*background-image: url(http://s3-ap-southeast-2.amazonaws.com/asset.winning.com.au/bhc/uploads/2012/10/round-plate.jpg);*/
-      background-repeat: repeat-x;
-      background-color: #FCA08D;
-      background-attachment: fixed;
-      background-size: contain;
-      color: #fff;
+    .well-white {
+      background-color: #fff !important;
+    }
+
+    .tooltip{
+      z-index: 100000000;
     }
 
     /* Add a gray background color and some padding to the footer */
@@ -48,7 +42,6 @@
     color: #000;
     background: #FCA08D;
     }
-
 
     .hovereffect {
       width: 100%;
@@ -139,15 +132,6 @@
       transition-delay: .2s;
     }
 
-    img.img-responsive{
-      min-height: 205px;
-      max-height: 205px;
-    }
-
-  </style>
-
-
-  <style>
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
       width: 70%;
@@ -158,24 +142,43 @@
 <body style="background-color: #ffffff;">
 
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
+  <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Customiz-Eat</a>
+      <a class="navbar-brand" href="#">Customiz-Eat<span class="glyphicon glyphicon-cutlery"></span></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">Contact</a></li>
+        <li class="dropdown">
+          <a href="#browse" class="dropdown-toggle" data-toggle="dropdown">Browse<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href='#'>New/Trending</a></li>
+            <li><a href='#'>Categories<span></span></a></li>
+            <li><a href='#'>Cuisines</a></li>
+            <li><a href='#'>Diet</a></li>
+            <li><a href='#'>Chef's Recipes</a></li><!-- chef-rated users' recipes -->
+          </ul>
+        </li>
+        <li><a href="#gallery">Gallery</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href='#like' class='btn-lg'><span class="glyphicon glyphicon-heart"></span></a></li>
+        <li class="dropdown">
+          <a href='#like' class='dropdown-toggle btn-lg' data-toggle="dropdown">
+            <span class="glyphicon glyphicon-cog"></span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href='#'>Preferences</a></li>
+            <li><a href='#'>item1</a></li>
+            <li><a href='#'>item2</a></li>
+            <li><a href='#'>item3</a></li>
+          </ul>
+        </li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</a></li>
       </ul>
     </div>
   </div>
@@ -183,16 +186,73 @@
 
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>Customiz-Eat</h1>
+      <h2>&nbsp;</h2>
       <form>
-        <div class="col-md-6 col-md-offset-3">
-          <div class="input-group input-group-lg">
+        <div class="col-md-8 col-md-offset-2">
+          <!-- form for laptops and desktops -->
+          <div class="input-group input-group-lg hidden-xs hidden-sm">
+            <span class="input-group-btn">
+              <a role="button" data-toggle="collapse" href="#addIngredient" aria-expanded="false" aria-controls="addIngredient" class="btn btn-default">
+                <span data-toggle="tooltip" data-placement="bottom" title="include / exclude ingredients">
+                  <span class="glyphicon glyphicon-plus"></span>/<span class="glyphicon glyphicon-minus"></span>
+                </span>
+              </a>
+            </span>
+            <input type="text" class="form-control" placeholder="Find a recipe!">
+            <span class="input-group-btn">
+              <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+          </div>
+
+          <!-- form for small tablets and phones -->
+          <div class="input-group input-group-sm hidden-md hidden-lg">
+            <span class="input-group-btn">
+              <a role="button" data-toggle="collapse" href="#addIngredient" aria-expanded="false" aria-controls="addIngredient" class="btn btn-default">
+                <span data-toggle="tooltip" data-placement="bottom" title="include / exclude ingredients">
+                  <span class="glyphicon glyphicon-plus"></span>/<span class="glyphicon glyphicon-minus"></span>
+                </span>
+              </a>
+            </span>
             <input type="text" class="form-control" placeholder="Find a Recipe">
-            <span class="input-group-addon glyphicon glyphicon-search"></span>
+            <span class="input-group-btn">
+              <button class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+            </span>
+          </div>
+
+          <div id="addIngredient" class="collapse">
+            <!-- input group for large devices -->
+            <div class="well well-white well-sm hidden-sm hidden-xs">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Include ingredients">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </span>
+                <input type="text" class="form-control" placeholder="Exclude ingredients" style="margin-left: 3px;">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
+              </div>
+            </div>
+
+            <!-- input group for small devices -->
+            <div class="well well-white well-sm hidden-md hidden-lg">
+              <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="Include ingredients">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </span>
+              </div>
+              <div class="input-group input-group-sm" style="margin-top: 3px;">
+                <input type="text" class="form-control" placeholder="Exclude ingredients">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </form>
-  </div>
+  </div><!-- class="container" -->
 </div>
 <div class="container" style="background-color: #ffffff;">
 <div class="container-fluid bg-3 text-center">

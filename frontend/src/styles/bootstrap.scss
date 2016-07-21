@@ -1,0 +1,35 @@
+:global {
+  @import 'base';
+  @import '~normalize.css/normalize';
+
+  .jumbotron {
+    /*background-image: url(http://s3-ap-southeast-2.amazonaws.com/asset.winning.com.au/bhc/uploads/2012/10/round-plate.jpg);*/
+    /*background-image: linear-gradient(to bottom, #4997BF 0px, #D9EDF7 45%);*/
+    background-repeat: repeat-x;
+    background-color: #ff947f;
+    background-attachment: fixed;
+    background-size: contain;
+    color: #777;
+  }
+
+  .input-group, .input-group-sm, .input-group-btn, .form-control, .btn, .btn-default, .input-group-addon{
+    border-radius: 0 !important;
+  }
+
+  .well, .well-sm{
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border-top: 0px solid #e3e3e3 !important;
+  }
+
+  .form-control{
+    box-shadow: none !important;
+  }
+
+  .well-white {
+    background-color: #fff !important;
+  }
+  .navbar{
+   letter-spacing: 0.15em;
+ }
+}
